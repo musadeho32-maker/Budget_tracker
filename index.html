@@ -1,40 +1,144 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple budget tracker for recording and reviewing everyday expenses.">
     <title>My Budget Tracker</title>
-
-<link rel="stylesheet" href="style.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
- 
 <body>
+    <header id="main-header">
+        <img
+            class="site-logo"
+            src="https://cdn.jsdelivr.net/npm/lucide-static@0.468.0/icons/wallet.svg"
+            alt="Wallet icon representing the Budget Tracker"
+            width="56"
+        >
+        <h1>My Budget Tracker</h1>
+        <p>Track your income and expenses in one place.</p>
+    </header>
 
-<header id="main-header">
-    <h1>My Budget Tracker</h1>
-    <p>Track your income and expenses in one place.</p>
-</header>
+    <main>
+        <section class="expense-section add-expense-section" aria-labelledby="add-expense-heading">
+            <h2 id="add-expense-heading">Add Expense</h2>
+            <p>Enter the details of an expense below. The form layout is ready for JavaScript functionality in a later lesson.</p>
 
-<section class="expense-section">
-    <h2>Add Expense</h2>
+            <form class="expense-form" id="expense-form">
+                <label for="expense-name">Expense Name</label>
+                <input
+                    type="text"
+                    id="expense-name"
+                    name="expense-name"
+                    placeholder="e.g. Groceries"
+                    required
+                >
 
-    <label for="expense-name">Expense Name</label>
-    <input type="text" id="expense-name" placeholder="Enter expense name">
+                <label for="expense-amount">Amount (KES)</label>
+                <input
+                    type="number"
+                    id="expense-amount"
+                    name="expense-amount"
+                    placeholder="e.g. 1500"
+                    min="0.01"
+                    step="0.01"
+                    required
+                >
 
-    <label for="expense-amount">Amount</label>
-    <input type="number" id="expense-amount" placeholder="Enter amount">
+                <label for="expense-category">Category</label>
+                <select id="expense-category" name="expense-category" required>
+                    <option value="">Choose a category</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select>
 
-    <label for="expense-category">Category</label>
-    <input type="text" id="expense-category" placeholder="Enter category">
-</section>
+                <label for="expense-date">Date</label>
+                <input type="date" id="expense-date" name="expense-date" required>
 
-<section class="expenses-list">
-    <h2>Your Expenses</h2>
-    <p>No expenses yet.</p>
-</section>
+                <button type="button" id="add-expense-button">Add Expense</button>
+            </form>
+        </section>
 
+        <section class="expenses-list" aria-labelledby="expenses-heading">
+            <h2 id="expenses-heading">Your Expenses</h2>
+            <p class="section-intro">Sample records show how your expense table will look.</p>
 
+            <div class="table-wrapper">
+                <table class="expenses-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Groceries</td>
+                            <td>KES 2,500</td>
+                            <td>Food</td>
+                            <td>2026-11-02</td>
+                        </tr>
+                        <tr>
+                            <td>Bus fare</td>
+                            <td>KES 300</td>
+                            <td>Transport</td>
+                            <td>2026-11-04</td>
+                        </tr>
+                        <tr>
+                            <td>House rent</td>
+                            <td>KES 5,000</td>
+                            <td>Rent</td>
+                            <td>2026-11-05</td>
+                        </tr>
+                        <tr>
+                            <td>Football match</td>
+                            <td>KES 500</td>
+                            <td>Entertainment</td>
+                            <td>2026-11-08</td>
+                        </tr>
+                        <tr>
+                            <td>Mobile airtime</td>
+                            <td>KES 200</td>
+                            <td>Other</td>
+                            <td>2026-11-10</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="help-section" aria-labelledby="help-heading">
+            <details>
+                <summary id="help-heading">How to use this tracker</summary>
+                <p>Enter an expense name, amount, category, and date in the form. The Add Expense button is a visual form control for this HTML and CSS exercise; it will be connected to JavaScript in a later lesson. The table currently contains five sample expenses.</p>
+            </details>
+        </section>
+
+        <section class="video-section" aria-labelledby="video-heading">
+            <h2 id="video-heading">Learn a Budgeting Tip</h2>
+            <p>Watch this introductory video about planning and tracking your money.</p>
+            <div class="video-wrapper">
+                <iframe
+                    width="560"
+                    height="315"
+                    src="https://www.youtube.com/embed/8t3jes983eo"
+                    title="Learn how to budget - MoneyLion"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+                ></iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p>My Budget Tracker | Practice project for learning HTML and CSS</p>
+    </footer>
 </body>
 </html>
