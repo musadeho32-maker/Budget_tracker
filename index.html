@@ -10,7 +10,7 @@
 <body>
     <header id="main-header">
         <div class="brand">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png"
+            <img class="site-logo" src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png"
                  alt="Budget Tracker wallet logo" width="64">
             <div>
                 <h1>My Budget Tracker</h1>
@@ -23,7 +23,7 @@
         <section class="expense-section add-expense-section" aria-labelledby="add-expense-heading">
             <h2 id="add-expense-heading">Add an Expense</h2>
             <p>Enter the details below to record an expense. The form is a visual practice exercise; adding records will be implemented in a later lesson.</p>
-            <form action="#" method="get">
+            <form class="expense-form" action="#" method="get">
                 <div class="form-field">
                     <label for="expense-name">Expense name</label>
                     <input type="text" id="expense-name" name="expense-name" placeholder="e.g. Groceries" required>
@@ -55,7 +55,7 @@
             <h2 id="expenses-heading">Your Expenses</h2>
             <p class="section-intro">Sample records show how your expense table will look.</p>
             <div class="table-wrapper">
-                <table>
+                <table class="expenses-table">
                     <thead>
                         <tr>
                             <th scope="col">Name</th>
@@ -100,7 +100,7 @@
         </section>
     </main>
 
-    <footer>
+    <footer class="page-footer">
         <p>My Budget Tracker | Learning HTML and CSS</p>
     </footer>
 </body>
