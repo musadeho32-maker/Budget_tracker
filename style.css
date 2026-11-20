@@ -1,7 +1,5 @@
 /* Base page styles */
-* {
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
     font-family: Arial, sans-serif;
@@ -14,51 +12,45 @@ body {
 
 #main-header {
     background-color: #2c3e50;
-    color: white;
+    color: #ffffff;
     text-align: center;
     padding: 30px 20px;
-    margin-bottom: 24px;
+    margin: 0 auto 24px;
+    max-width: 1000px;
     border-radius: 10px;
 }
 
 .site-logo {
     display: block;
     width: 56px;
-    height: 56px;
+    height: auto;
     margin: 0 auto 10px;
     padding: 8px;
-    background-color: white;
+    background-color: #ffffff;
     border-radius: 12px;
 }
 
-h1 {
-    font-size: 32px;
-    margin: 0 0 8px;
-}
-
-h2 {
-    color: #263746;
-    margin-top: 0;
-}
-
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-}
+h1 { font-size: 32px; margin: 0 0 8px; }
+h2 { color: #263746; margin-top: 0; }
+main { max-width: 1000px; margin: 0 auto; }
 
 .expense-section,
 .expenses-list,
 .help-section,
 .video-section {
-    background-color: white;
+    background-color: #ffffff;
     padding: 25px;
     margin-bottom: 22px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
-.expenses-list {
-    background-color: #f0f8f2;
+.expenses-list { background-color: #f0f8f2; }
+
+.expense-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 20px;
 }
 
 label {
@@ -68,8 +60,7 @@ label {
     font-weight: bold;
 }
 
-input,
-select {
+input, select {
     display: block;
     width: 100%;
     max-width: 460px;
@@ -78,13 +69,12 @@ select {
     border: 1px solid #b9c5c9;
     border-radius: 5px;
     font: inherit;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
-/* Advanced selector 1: direct-child selector for form controls */
-.expense-form > input,
-.expense-form > select {
-    background-color: #fbfdfd;
+/* Advanced selector 1: direct-child selector */
+.expense-form > .form-field {
+    min-width: 0;
 }
 
 /* Advanced selector 2: negation pseudo-class */
@@ -93,32 +83,24 @@ input:not([type="date"]) {
 }
 
 /* Advanced selector 3: focus pseudo-class */
-input:focus,
-select:focus {
+input:focus, select:focus {
     outline: 3px solid rgba(39, 129, 104, 0.2);
     border-color: #278168;
 }
 
 /* Advanced selector 4: descendant selector */
-.expenses-list td {
-    font-size: 15px;
-}
+.expenses-list td { font-size: 15px; }
 
-/* Expense table styles */
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
+.table-wrapper { width: 100%; overflow-x: auto; }
 
 .expenses-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    background-color: white;
+    background-color: #ffffff;
 }
 
-.expenses-table th,
-.expenses-table td {
+.expenses-table th, .expenses-table td {
     border: 1px solid #cbd5d8;
     padding: 12px 14px;
     text-align: left;
@@ -126,22 +108,28 @@ select:focus {
 
 .expenses-table thead {
     background-color: #2c6e5b;
-    color: white;
+    color: #ffffff;
 }
 
-/* Advanced selector 5: positional pseudo-class for alternating rows */
+/* Advanced selector 5: positional pseudo-class */
 .expenses-table tbody tr:nth-child(even) {
     background-color: #edf4f1;
 }
 
-/* Row hover interaction */
+/* Table row hover interaction */
 .expenses-table tbody tr:hover {
     background-color: #dcefe7;
+    transition: background-color 0.2s ease;
+}
+
+.expense-form button {
+    justify-self: start;
+    align-self: end;
 }
 
 button {
     background-color: #278168;
-    color: white;
+    color: #ffffff;
     border: none;
     border-radius: 5px;
     padding: 12px 20px;
@@ -151,19 +139,10 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #1d6552;
-}
+button:hover { background-color: #1d6552; }
 
-details {
-    padding: 5px 0;
-}
-
-summary {
-    color: #205f4e;
-    font-weight: bold;
-    cursor: pointer;
-}
+details { padding: 5px 0; }
+summary { color: #205f4e; font-weight: bold; cursor: pointer; }
 
 .video-wrapper {
     position: relative;
@@ -190,24 +169,13 @@ summary {
 }
 
 @media (max-width: 600px) {
-    body {
-        padding: 12px;
-    }
-
-    #main-header,
-    .expense-section,
-    .expenses-list,
-    .help-section,
-    .video-section {
+    body { padding: 12px; }
+    #main-header, .expense-section, .expenses-list, .help-section, .video-section {
         padding: 18px;
     }
-
-    h1 {
-        font-size: 26px;
-    }
-
-    .expenses-table th,
-    .expenses-table td {
+    h1 { font-size: 26px; }
+    .expense-form { grid-template-columns: 1fr; }
+    .expenses-table th, .expenses-table td {
         padding: 9px;
         font-size: 13px;
     }
