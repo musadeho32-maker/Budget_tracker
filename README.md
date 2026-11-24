@@ -29,7 +29,7 @@ SpendWise is a responsive personal budgeting website. It helps users set a month
 
 ## Live Netlify Website URL
 
-**Pending first deployment.** After Netlify publishes the site, replace this line with the live URL, for example `https://your-site-name.netlify.app`.
+[https://budget-tracker-b8f9.netlify.app/](https://budget-tracker-b8f9.netlify.app/)
 
 ## Deployment Process Summary
 
@@ -40,7 +40,7 @@ SpendWise is a responsive personal budgeting website. It helps users set a month
 5. Deploy the site. In Netlify's site settings, change the generated site name to a meaningful available name such as `spendwise-budget-tracker`.
 6. Open the published URL and test the application.
 7. After the first deployment, make a visible change, commit and push it to `main`. Confirm in Netlify's **Deploys** page that a new deployment starts and publishes the latest commit.
-8. Replace the pending URL above with the confirmed live Netlify URL and commit the README update.
+8. Add the published Netlify URL to this README and commit the update. The current URL was supplied for this project.
 
 ## Deployment Testing Checklist
 
