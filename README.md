@@ -1,108 +1,110 @@
-# SpendWise — JavaScript Budget Tracker
+# SpendWise — Interactive JavaScript Budget Tracker
 
 ## Project overview
 
-SpendWise is a beginner-friendly personal budgeting application. It asks the user for a monthly budget and current expenses, calculates the total spending and remaining balance, and displays the results on the webpage and in the browser console. Users can record, filter and remove expenses, update their budget, and receive warnings when spending approaches or exceeds the budget.
+SpendWise is a personal budgeting application that helps users set a monthly budget, record expenses and monitor their remaining balance. This week's improvements make the dashboard interactive: users can add and remove expense records, filter expenses by category, update their monthly budget and receive feedback when spending approaches or exceeds the budget.
 
 All amounts are displayed in Kenyan shillings (KES).
 
 ## Project files
 
-- **`index.html`** — provides the page structure, budget summary, expense form, expense table and help section. It links the stylesheet and JavaScript file.
-- **`style.css`** — controls the colours, typography, cards, form, table and responsive layout.
-- **`script.js`** — collects input, stores budget data, performs calculations, updates the page and prints a labelled budget summary in the browser console.
-- **`README.md`** — explains the project and how to run it.
+- **`index.html`** — provides the dashboard, budget summary, expense form, category filter and expense table.
+- **`style.css`** — styles the application, including its forms, summary cards, table, warning messages and responsive mobile layout.
+- **`script.js`** — stores expense data, validates input, calculates totals, makes budget decisions, updates the webpage and handles user events.
+- **`README.md`** — explains the project, JavaScript concepts and how to run and test the application.
 
-## JavaScript concepts implemented
+## Improvements made this week
 
-### 1. Variables and data types
+1. Added a form for recording an expense name, amount, category and date.
+2. Added an expense array so the application can manage multiple expense records.
+3. Added a loop to calculate total expenses and another loop to display records in the table.
+4. Added conditional feedback for a zero budget, spending at or above 80% of the budget, and spending beyond the budget.
+5. Made the dashboard update when an expense is added or removed, or when the monthly budget changes.
+6. Added a category filter so users can view selected types of expenses.
+7. Added remove buttons for individual expense records.
+8. Added input validation and accessible status feedback.
 
-The application uses variables to store information while it runs:
+## How JavaScript concepts are used
 
-- `monthlyBudget` is a number representing the user's budget.
-- `expenses` is an array containing multiple expense objects. Each record has an ID, name, amount, category and date.
-- `totalExpenses` is a number representing the sum of expense amounts.
-- Each expense object stores a `name` (string), `amount` (number), `category` (string) and `date` (string).
-- `budgetInput` and `expensesInput` temporarily store text returned by the browser prompts. The `Number()` function converts valid numeric input into numbers.
+### 1. Decision making with conditionals
 
-The variables use `let` because their values can change as expenses are added.
+The `displayBudgetSummary()` function uses `if`, `else if` and `else` statements to evaluate the user's budget:
 
-### 2. Collecting user input
+- If the remaining balance is below zero, the page displays an over-budget warning.
+- If the monthly budget is zero, the page asks the user to set a spending limit.
+- If the user has spent at least 80% of the budget, the page displays a budget alert.
+- Otherwise, the page displays a positive message showing the remaining balance.
 
-When the page loads, JavaScript uses `prompt()` to ask for the monthly budget and current total expenses. It checks that the entries are valid, numeric values and are not negative.
+Conditional checks are also used to validate prompt and form values and to decide which expense records should be displayed.
 
-The HTML expense form collects an expense name, amount, category and date. JavaScript reads these values when the user submits the form.
+### 2. Arrays store multiple records
 
-### 3. Budget calculations
+The `expenses` array stores expense objects instead of keeping each expense in a separate variable. Each object contains an ID, name, amount, category and date.
 
-- `calculateTotalExpenses(expenseList)` uses the array `reduce()` method to add all expense amounts.
-- `calculateRemainingBalance(budget, spent)` subtracts total expenses from the monthly budget.
-- The application can show a negative remaining balance when spending is greater than the budget, making overspending visible.
+When a user submits the expense form, `addExpense()` creates an object and adds it to the array with `expenses.push()`. The array's `filter()` method is used to remove a selected record and to support category filtering.
 
-### 4. Reusable functions
+### 3. Loops process expense records
 
-Functions keep the code organised and prevent repeating the same instructions:
+The `calculateTotalExpenses()` function uses a `for...of` loop to visit each expense and add its amount to the total. The `renderExpenses()` function uses another `for...of` loop to display each record that matches the selected category.
 
-- `getStartingBudget()` collects and validates the initial budget information.
-- `calculateTotalExpenses()` adds expense amounts.
-- `calculateRemainingBalance()` calculates the remaining budget.
-- `formatCurrency()` formats amounts as KES.
-- `displayBudgetSummary()` updates the dashboard, evaluates budget conditions and prints labelled results in the console.
-- `renderExpenses()` loops through the array and displays the selected records.
-- `createExpenseRow()` creates a table row for one expense.
-- `addExpense()` validates form data, stores a new expense and refreshes the dashboard.
-- `updateBudget()` validates and updates the monthly budget.
+These loops allow the application to process many expenses without writing separate code for every record.
 
-### 5. Decision making with conditionals
+### 4. DOM manipulation updates the dashboard
 
-The dashboard uses `if`, `else if` and `else` statements to respond to the budget situation:
+JavaScript changes webpage content directly through the Document Object Model (DOM):
 
-- If spending exceeds the budget, an over-budget warning appears.
-- If the budget is zero, SpendWise asks the user to set a spending limit.
-- If 80% or more of the budget has been used, a budget alert appears.
-- Otherwise, the dashboard confirms the remaining balance.
+- `getElementById()` selects the dashboard elements and form controls.
+- `textContent` updates the budget, spending, remaining balance and feedback message.
+- `createElement()` creates table rows, cells and remove buttons.
+- `appendChild()` adds the new elements to the expense table.
+- `replaceChildren()` clears the old table rows before the current records are displayed.
+- `classList` adds or removes warning styles according to the budget result.
 
-### 6. Arrays and loops
+The totals and expense list therefore change on the page without requiring a manual refresh.
 
-The `expenses` array stores expense objects. A `for...of` loop calculates the total and another loop renders the expense records. The `filter()` array method supports category filtering and removing a selected record.
+### 5. Events handle user interactions
 
-### 7. DOM manipulation and event listeners
+The application uses `addEventListener()` to respond to user actions:
 
-SpendWise updates the webpage with `textContent`, `createElement()`, `appendChild()` and `replaceChildren()`. Event listeners respond to form submissions, category changes, remove-button clicks and budget updates. Event delegation lets one listener handle remove buttons in dynamically-created rows.
+- The expense form's `submit` event calls `addExpense()`.
+- The budget form's `submit` event calls `updateBudget()`.
+- The category filter's `change` event calls `renderExpenses()`.
+- A `click` event on the expense table handles remove-button actions.
 
-### 8. Displaying results
+The table uses event delegation: one click listener on the table body handles remove buttons created dynamically. After an action changes the data, the application renders the expense list and recalculates the dashboard.
 
-The budget, total spent and remaining balance appear in the Budget Overview on the webpage. The browser console also displays a clearly labelled SpendWise Budget Summary, including the number of expense records.
+## Challenges encountered and how they were resolved
 
-## How to run and test SpendWise
+- **Keeping totals accurate when records change:** The totals could become outdated after adding or removing expenses. The application now recalculates the total from the expenses array and refreshes the dashboard after each data change.
+- **Handling buttons created dynamically:** Remove buttons do not exist when the page first loads. Event delegation on the table body allows one event listener to handle those buttons after rows are created.
+- **Preventing invalid entries:** Empty names, missing categories, invalid dates and amounts that are not greater than zero are checked before an expense is added. Budget inputs are also checked to prevent negative or invalid values.
+- **Showing useful feedback:** Conditional statements select the appropriate message and warning style for the user's budget situation.
 
-1. Open the repository on GitHub, then download or clone the project.
+## How to run SpendWise
+
+1. Open this public GitHub repository and download or clone the project.
 2. Open `index.html` in a modern web browser.
-3. Enter a monthly budget when the first prompt appears.
-4. Enter your current total expenses in the second prompt (enter `0` if you have none).
-5. Check the Budget Overview for the budget, spending and remaining balance.
-6. Open the browser developer tools (**F12**) and select the **Console** tab to view the labelled calculation results.
-7. Add several expenses in different categories and confirm that each appears in the table.
-8. Use the category filter and confirm that only matching records are displayed.
-9. Remove an expense and confirm that the totals are recalculated.
-10. Update the monthly budget using the Update Budget form.
-11. Test the warning conditions: use 80% or more of the budget for a budget alert, and more than 100% for an over-budget warning.
-12. Open the browser developer tools (**F12**) and select the **Console** tab to review the labelled summary.
-13. Refresh the page to test the starting prompts again.
+3. Enter a monthly budget when prompted.
+4. Enter your current total expenses when prompted. Enter `0` if you have no starting expenses.
+5. Use the expense form to add expenses with a name, amount, category and date.
+6. Use the category filter to view selected records.
+7. Select **Remove** beside a record to delete it.
+8. Use **Update Budget** to change the monthly budget.
+9. Watch the Budget Overview and feedback message update after each action.
 
 ## Testing checklist
 
-- [ ] A valid monthly budget and starting expense total are accepted.
-- [ ] Invalid or negative prompt values are rejected.
-- [ ] The remaining balance equals budget minus total expenses.
-- [ ] Adding several expenses updates the table and totals.
-- [ ] Category filtering shows matching records only.
-- [ ] Removing an expense updates the totals.
-- [ ] Updating the budget refreshes the dashboard.
-- [ ] The 80% warning and over-budget decision messages work.
-- [ ] Results are labelled in the browser console.
-- [ ] The layout works on desktop and mobile screens.
+- [ ] Enter a valid monthly budget and starting expense amount.
+- [ ] Check that invalid or negative prompt values are rejected.
+- [ ] Add multiple expenses and confirm each appears in the table.
+- [ ] Confirm that total spent and remaining balance update after adding an expense.
+- [ ] Filter expenses by category and confirm only matching records appear.
+- [ ] Remove an expense and confirm the totals update.
+- [ ] Update the monthly budget and confirm the summary changes.
+- [ ] Test spending below 80%, at or above 80%, and above 100% of the budget.
+- [ ] Confirm the appropriate feedback message appears for each budget situation.
+- [ ] Check the layout on desktop and mobile screen sizes.
 
-## Notes
+## Current limitation
 
-The data is stored in JavaScript variables while the page is open. It is not saved permanently; refreshing the page starts a new session and asks for the budget again. The Google Fonts, wallet image and embedded video require an internet connection.
+Expense records and the monthly budget are held in JavaScript variables while the page is open. They are not saved permanently, so refreshing the page starts a new session and asks for the budget again.
