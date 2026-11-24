@@ -3,34 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A simple budget tracker for recording and reviewing everyday expenses.">
-    <title>My Budget Tracker</title>
+    <meta name="description" content="SpendWise helps you plan a budget, record expenses and understand your remaining balance.">
+    <title>SpendWise | Personal Budget Tracker</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 <body>
     <header id="main-header">
         <div class="brand">
             <img class="site-logo" src="https://cdn-icons-png.flaticon.com/512/3135/3135706.png"
-                 alt="Budget Tracker wallet logo" width="64">
+                 alt="SpendWise wallet logo" width="64">
             <div>
-                <h1>My Budget Tracker</h1>
-                <p>Track your everyday expenses in one place.</p>
+                <h1>SpendWise</h1>
+                <p>Make every shilling count. Plan your budget and track your spending.</p>
             </div>
         </div>
     </header>
 
     <main>
+        <section class="budget-section" aria-labelledby="budget-heading">
+            <h2 id="budget-heading">Your Budget Overview</h2>
+            <p class="section-intro">Your figures update as you add expenses. The starting budget is collected with JavaScript prompts.</p>
+            <div class="summary-grid">
+                <article class="summary-card">
+                    <span class="summary-label">Monthly budget</span>
+                    <strong id="budget-total">KES 0.00</strong>
+                </article>
+                <article class="summary-card">
+                    <span class="summary-label">Total spent</span>
+                    <strong id="spent-total">KES 0.00</strong>
+                </article>
+                <article class="summary-card remaining-card">
+                    <span class="summary-label">Remaining balance</span>
+                    <strong id="remaining-total">KES 0.00</strong>
+                </article>
+            </div>
+            <p id="budget-message" class="status-message" role="status" aria-live="polite">Enter your budget when prompted to get started.</p>
+        </section>
+
         <section class="expense-section add-expense-section" aria-labelledby="add-expense-heading">
             <h2 id="add-expense-heading">Add an Expense</h2>
-            <p>Enter the details below to record an expense. The form is a visual practice exercise; adding records will be implemented in a later lesson.</p>
-            <form class="expense-form" action="#" method="get">
+            <p>Record what you spend. SpendWise will update your totals automatically.</p>
+            <form class="expense-form" id="expense-form">
                 <div class="form-field">
                     <label for="expense-name">Expense name</label>
-                    <input type="text" id="expense-name" name="expense-name" placeholder="e.g. Groceries" required>
+                    <input type="text" id="expense-name" name="expense-name" placeholder="e.g. Groceries" required maxlength="60">
                 </div>
                 <div class="form-field">
                     <label for="expense-amount">Amount (KES)</label>
-                    <input type="number" id="expense-amount" name="expense-amount" placeholder="e.g. 1500" min="0" step="0.01" required>
+                    <input type="number" id="expense-amount" name="expense-amount" placeholder="e.g. 1500" min="0.01" step="0.01" required>
                 </div>
                 <div class="form-field">
                     <label for="expense-category">Category</label>
@@ -47,13 +68,13 @@
                     <label for="expense-date">Date</label>
                     <input type="date" id="expense-date" name="expense-date" required>
                 </div>
-                <button type="button" id="add-expense-button">Add Expense</button>
+                <button type="submit" id="add-expense-button">Add Expense</button>
             </form>
         </section>
 
         <section class="expenses-list expenses-section" aria-labelledby="expenses-heading">
             <h2 id="expenses-heading">Your Expenses</h2>
-            <p class="section-intro">Sample records show how your expense table will look.</p>
+            <p class="section-intro">Your recorded expenses appear below.</p>
             <div class="table-wrapper">
                 <table class="expenses-table">
                     <thead>
@@ -64,7 +85,7 @@
                             <th scope="col">Date</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="expenses-body">
                         <tr><td>Groceries</td><td>2,500.00</td><td>Food</td><td>2026-11-02</td></tr>
                         <tr><td>Bus fare</td><td>350.00</td><td>Transport</td><td>2026-11-04</td></tr>
                         <tr><td>House rent</td><td>5,000.00</td><td>Rent</td><td>2026-11-05</td></tr>
@@ -77,21 +98,20 @@
 
         <section class="help-section" aria-labelledby="help-heading">
             <details>
-                <summary id="help-heading">How to use this tracker</summary>
-                <p>Enter an expense name, amount, category, and date in the form. Select one of the five categories from the dropdown. The Add Expense button is included for this HTML and CSS exercise; it will become functional when JavaScript is added in a later lesson. The table currently displays sample expenses.</p>
+                <summary id="help-heading">How to use SpendWise</summary>
+                <p>Enter your monthly budget in the prompt when the page opens. The starting expense total is also requested. Use the form to add each new expense. The budget overview and browser console update with the new totals. All amounts are shown in Kenyan shillings (KES).</p>
             </details>
         </section>
 
         <section class="video-section" aria-labelledby="video-heading">
-            <h2 id="video-heading">Learn a Simple Budgeting Tip</h2>
-            <p>Watch this budgeting video to learn why planning your spending can help you manage money.</p>
+            <h2 id="video-heading">A Simple Budgeting Tip</h2>
+            <p>Planning your spending can help you manage money more confidently.</p>
             <div class="video-wrapper">
                 <iframe
                     width="560"
                     height="315"
                     src="https://www.youtube.com/embed/HQzoZfc3M5Y"
                     title="Personal budgeting tips video"
-                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen>
@@ -101,7 +121,7 @@
     </main>
 
     <footer class="page-footer">
-        <p>My Budget Tracker | Learning HTML and CSS</p>
+        <p>SpendWise | Plan wisely. Spend mindfully.</p>
     </footer>
 </body>
 </html>
