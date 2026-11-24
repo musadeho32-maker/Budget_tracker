@@ -23,7 +23,7 @@
     <main>
         <section class="budget-section" aria-labelledby="budget-heading">
             <h2 id="budget-heading">Your Budget Overview</h2>
-            <p class="section-intro">Your figures update as you add expenses. The starting budget is collected with JavaScript prompts.</p>
+            <p class="section-intro">Your dashboard responds to every expense you add, remove or filter.</p>
             <div class="summary-grid">
                 <article class="summary-card">
                     <span class="summary-label">Monthly budget</span>
@@ -39,6 +39,11 @@
                 </article>
             </div>
             <p id="budget-message" class="status-message" role="status" aria-live="polite">Enter your budget when prompted to get started.</p>
+            <form class="budget-edit-form" id="budget-form">
+                <label for="new-budget">Update monthly budget (KES)</label>
+                <input type="number" id="new-budget" min="0" step="0.01" placeholder="Enter a new budget" required>
+                <button type="submit">Update Budget</button>
+            </form>
         </section>
 
         <section class="expense-section add-expense-section" aria-labelledby="add-expense-heading">
@@ -74,7 +79,18 @@
 
         <section class="expenses-list expenses-section" aria-labelledby="expenses-heading">
             <h2 id="expenses-heading">Your Expenses</h2>
-            <p class="section-intro">Your recorded expenses appear below.</p>
+            <div class="list-toolbar">
+                <p class="section-intro">Your recorded expenses appear below. Filter by category or remove a record.</p>
+                <label for="category-filter">Filter expenses</label>
+                <select id="category-filter">
+                    <option value="All">All categories</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Rent">Rent</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
             <div class="table-wrapper">
                 <table class="expenses-table">
                     <thead>
@@ -83,6 +99,7 @@
                             <th scope="col">Amount (KES)</th>
                             <th scope="col">Category</th>
                             <th scope="col">Date</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody id="expenses-body"></tbody>
