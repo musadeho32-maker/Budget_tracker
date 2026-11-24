@@ -1,66 +1,81 @@
-# My Budget Tracker
+# SpendWise — JavaScript Budget Tracker
 
 ## Project overview
 
-My Budget Tracker is a beginner-friendly webpage for recording and reviewing everyday expenses. This project builds on the existing HTML and CSS work from previous weeks. The current assignment focuses on improving the visual design without adding new HTML structure or JavaScript functionality.
+SpendWise is a beginner-friendly personal budgeting application. It asks the user for a monthly budget and current expenses, calculates the total spending and remaining balance, and displays the results on the webpage and in the browser console. Users can also record additional expenses through the form and see the totals update immediately.
+
+All amounts are displayed in Kenyan shillings (KES).
 
 ## Project files
 
-- **`index.html`** – contains the existing webpage structure, page heading and wallet image, Add Expense form, sample expense table, collapsible help section, and embedded budgeting video.
-- **`style.css`** – controls the visual design, including the colour palette, Google Fonts, page layout, card styling, form controls, table appearance, hover and focus states, and responsive layout.
-- **`README.md`** – explains the project purpose, files, design choices, and how to view the webpage.
+- **`index.html`** — provides the page structure, budget summary, expense form, expense table and help section. It links the stylesheet and JavaScript file.
+- **`style.css`** — controls the colours, typography, cards, form, table and responsive layout.
+- **`script.js`** — collects input, stores budget data, performs calculations, updates the page and prints a labelled budget summary in the browser console.
+- **`README.md`** — explains the project and how to run it.
 
-## Visual design choices
+## JavaScript concepts implemented
 
-### Colour palette
+### 1. Variables and data types
 
-The design uses a consistent, professional palette:
+The application uses variables to store information while it runs:
 
-- **Deep navy (`#172b4d`)** for the page heading and table header.
-- **Emerald green (`#168568`)** for buttons and interactive accents.
-- **Soft mint (`#e9f5f0`)** for subtle backgrounds and alternating table rows.
-- **Warm white (`#ffffff`)** for content cards.
-- **Light grey (`#f3f6f8`)** for the page background.
+- `monthlyBudget` is a number representing the user's budget.
+- `expenses` is an array containing expense objects.
+- `totalExpenses` is a number representing the sum of expense amounts.
+- Each expense object stores a `name` (string), `amount` (number), `category` (string) and `date` (string).
+- `budgetInput` and `expensesInput` temporarily store text returned by the browser prompts. The `Number()` function converts valid numeric input into numbers.
 
-### Typography
+The variables use `let` because their values can change as expenses are added.
 
-Google Fonts are used consistently:
+### 2. Collecting user input
 
-- **Manrope** for the main page heading, section headings, and table headings.
-- **DM Sans** for body text, labels, form controls, buttons, and table content.
+When the page loads, JavaScript uses `prompt()` to ask for the monthly budget and current total expenses. It checks that the entries are valid, numeric values and are not negative.
 
-### Form and table styling
+The HTML expense form collects an expense name, amount, category and date. JavaScript reads these values when the user submits the form.
 
-- The Add Expense form uses a responsive two-column grid on wider screens and one column on small screens.
-- Inputs and dropdowns have consistent padding, borders, rounded corners, and visible keyboard-focus styling.
-- The expense table has a navy header, clear cell borders, comfortable spacing, alternating row colours, and a hover effect.
-- The table remains horizontally scrollable on narrow screens.
+### 3. Budget calculations
 
-### CSS Box Model and layout
+- `calculateTotalExpenses(expenseList)` uses the array `reduce()` method to add all expense amounts.
+- `calculateRemainingBalance(budget, spent)` subtracts total expenses from the monthly budget.
+- The application can show a negative remaining balance when spending is greater than the budget, making overspending visible.
 
-- The page heading, Add Expense form, and Expense Table are presented as distinct cards.
-- Margin separates the page sections, while padding creates space inside each card and its controls.
-- Borders and rounded corners define the cards, inputs, and table.
-- Subtle shadows add separation from the page background.
-- Responsive CSS adjusts spacing and form layout for mobile devices.
+### 4. Reusable functions
 
-## Existing content and functionality
+Functions keep the code organised and prevent repeating the same instructions:
 
-1. An expense form with labelled fields for name, amount, category, and date.
-2. A category dropdown with Food, Transport, Rent, Entertainment, and Other.
-3. An Add Expense button. It is a visual placeholder and does not add records yet because JavaScript functionality is outside this assignment.
-4. An expense table displaying five sample records.
-5. A collapsible help section and an embedded budgeting video.
-6. Responsive styling for desktop and mobile screens.
+- `getStartingBudget()` collects and validates the initial budget information.
+- `calculateTotalExpenses()` adds expense amounts.
+- `calculateRemainingBalance()` calculates the remaining budget.
+- `formatCurrency()` formats amounts as KES.
+- `displayBudgetSummary()` updates the webpage and prints labelled results in the console.
+- `addExpense()` validates form data, stores a new expense, adds a table row and refreshes the totals.
 
-## How to view the project
+### 5. Displaying results
 
-1. Open the repository on GitHub.
-2. Download or clone the project.
-3. Open the project folder.
-4. Open `index.html` in a web browser.
-5. Keep an internet connection available to load Google Fonts, the wallet icon, and the embedded YouTube video.
+The budget, total spent and remaining balance appear in the Budget Overview on the webpage. The browser console also displays a clearly labelled SpendWise Budget Summary, including the number of expense records.
 
-## Note
+## How to run and test SpendWise
 
-This assignment improves the existing Budget Tracker's CSS visual design. The original HTML structure and existing functionality have been retained. The sample expenses are demonstration data, and the Add Expense button is not connected to JavaScript yet.
+1. Open the repository on GitHub, then download or clone the project.
+2. Open `index.html` in a modern web browser.
+3. Enter a monthly budget when the first prompt appears.
+4. Enter your current total expenses in the second prompt (enter `0` if you have none).
+5. Check the Budget Overview for the budget, spending and remaining balance.
+6. Open the browser developer tools (**F12**) and select the **Console** tab to view the labelled calculation results.
+7. Add an expense using the form. Confirm that the new row appears and the totals and console summary update.
+8. Try an expense total greater than the budget to confirm that SpendWise reports overspending.
+9. Refresh the page to test the prompts again.
+
+## Testing checklist
+
+- [ ] A valid monthly budget and starting expense total are accepted.
+- [ ] Invalid or negative prompt values are rejected.
+- [ ] The remaining balance equals budget minus total expenses.
+- [ ] Adding an expense updates the table and totals.
+- [ ] Overspending is clearly reported.
+- [ ] Results are labelled in the browser console.
+- [ ] The layout works on desktop and mobile screens.
+
+## Notes
+
+The data is stored in JavaScript variables while the page is open. It is not saved permanently; refreshing the page starts a new session and asks for the budget again. The Google Fonts, wallet image and embedded video require an internet connection.
