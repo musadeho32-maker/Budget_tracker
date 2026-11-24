@@ -63,6 +63,18 @@ function formatCurrency(amount) {
     }).format(amount);
 }
 
+// Create a table row for an expense without inserting user input as HTML.
+function appendExpenseRow(expense) {
+    const row = document.createElement("tr");
+    [expense.name, formatCurrency(expense.amount), expense.category, expense.date]
+        .forEach(function (value) {
+            const cell = document.createElement("td");
+            cell.textContent = value;
+            row.appendChild(cell);
+        });
+    document.getElementById("expenses-body").appendChild(row);
+}
+
 // Update the summary on the webpage and print clearly labelled results.
 function displayBudgetSummary() {
     totalExpenses = calculateTotalExpenses(expenses);
@@ -115,14 +127,7 @@ function addExpense(event) {
 
     expenses.push(newExpense);
 
-    const row = document.createElement("tr");
-    [newExpense.name, formatCurrency(newExpense.amount), newExpense.category, newExpense.date]
-        .forEach(function (value) {
-            const cell = document.createElement("td");
-            cell.textContent = value;
-            row.appendChild(cell);
-        });
-    document.getElementById("expenses-body").appendChild(row);
+    appendExpenseRow(newExpense);
 
     document.getElementById("expense-form").reset();
     displayBudgetSummary();
@@ -138,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+    expenses.forEach(appendExpenseRow);
     displayBudgetSummary();
     document.getElementById("expense-form").addEventListener("submit", addExpense);
 });
