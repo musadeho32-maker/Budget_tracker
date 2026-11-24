@@ -2,7 +2,7 @@
 
 ## Project overview
 
-SpendWise is a beginner-friendly personal budgeting application. It asks the user for a monthly budget and current expenses, calculates the total spending and remaining balance, and displays the results on the webpage and in the browser console. Users can also record additional expenses through the form and see the totals update immediately.
+SpendWise is a beginner-friendly personal budgeting application. It asks the user for a monthly budget and current expenses, calculates the total spending and remaining balance, and displays the results on the webpage and in the browser console. Users can record, filter and remove expenses, update their budget, and receive warnings when spending approaches or exceeds the budget.
 
 All amounts are displayed in Kenyan shillings (KES).
 
@@ -20,7 +20,7 @@ All amounts are displayed in Kenyan shillings (KES).
 The application uses variables to store information while it runs:
 
 - `monthlyBudget` is a number representing the user's budget.
-- `expenses` is an array containing expense objects.
+- `expenses` is an array containing multiple expense objects. Each record has an ID, name, amount, category and date.
 - `totalExpenses` is a number representing the sum of expense amounts.
 - Each expense object stores a `name` (string), `amount` (number), `category` (string) and `date` (string).
 - `budgetInput` and `expensesInput` temporarily store text returned by the browser prompts. The `Number()` function converts valid numeric input into numbers.
@@ -47,10 +47,30 @@ Functions keep the code organised and prevent repeating the same instructions:
 - `calculateTotalExpenses()` adds expense amounts.
 - `calculateRemainingBalance()` calculates the remaining budget.
 - `formatCurrency()` formats amounts as KES.
-- `displayBudgetSummary()` updates the webpage and prints labelled results in the console.
-- `addExpense()` validates form data, stores a new expense, adds a table row and refreshes the totals.
+- `displayBudgetSummary()` updates the dashboard, evaluates budget conditions and prints labelled results in the console.
+- `renderExpenses()` loops through the array and displays the selected records.
+- `createExpenseRow()` creates a table row for one expense.
+- `addExpense()` validates form data, stores a new expense and refreshes the dashboard.
+- `updateBudget()` validates and updates the monthly budget.
 
-### 5. Displaying results
+### 5. Decision making with conditionals
+
+The dashboard uses `if`, `else if` and `else` statements to respond to the budget situation:
+
+- If spending exceeds the budget, an over-budget warning appears.
+- If the budget is zero, SpendWise asks the user to set a spending limit.
+- If 80% or more of the budget has been used, a budget alert appears.
+- Otherwise, the dashboard confirms the remaining balance.
+
+### 6. Arrays and loops
+
+The `expenses` array stores expense objects. A `for...of` loop calculates the total and another loop renders the expense records. The `filter()` array method supports category filtering and removing a selected record.
+
+### 7. DOM manipulation and event listeners
+
+SpendWise updates the webpage with `textContent`, `createElement()`, `appendChild()` and `replaceChildren()`. Event listeners respond to form submissions, category changes, remove-button clicks and budget updates. Event delegation lets one listener handle remove buttons in dynamically-created rows.
+
+### 8. Displaying results
 
 The budget, total spent and remaining balance appear in the Budget Overview on the webpage. The browser console also displays a clearly labelled SpendWise Budget Summary, including the number of expense records.
 
@@ -62,17 +82,24 @@ The budget, total spent and remaining balance appear in the Budget Overview on t
 4. Enter your current total expenses in the second prompt (enter `0` if you have none).
 5. Check the Budget Overview for the budget, spending and remaining balance.
 6. Open the browser developer tools (**F12**) and select the **Console** tab to view the labelled calculation results.
-7. Add an expense using the form. Confirm that the new row appears and the totals and console summary update.
-8. Try an expense total greater than the budget to confirm that SpendWise reports overspending.
-9. Refresh the page to test the prompts again.
+7. Add several expenses in different categories and confirm that each appears in the table.
+8. Use the category filter and confirm that only matching records are displayed.
+9. Remove an expense and confirm that the totals are recalculated.
+10. Update the monthly budget using the Update Budget form.
+11. Test the warning conditions: use 80% or more of the budget for a budget alert, and more than 100% for an over-budget warning.
+12. Open the browser developer tools (**F12**) and select the **Console** tab to review the labelled summary.
+13. Refresh the page to test the starting prompts again.
 
 ## Testing checklist
 
 - [ ] A valid monthly budget and starting expense total are accepted.
 - [ ] Invalid or negative prompt values are rejected.
 - [ ] The remaining balance equals budget minus total expenses.
-- [ ] Adding an expense updates the table and totals.
-- [ ] Overspending is clearly reported.
+- [ ] Adding several expenses updates the table and totals.
+- [ ] Category filtering shows matching records only.
+- [ ] Removing an expense updates the totals.
+- [ ] Updating the budget refreshes the dashboard.
+- [ ] The 80% warning and over-budget decision messages work.
 - [ ] Results are labelled in the browser console.
 - [ ] The layout works on desktop and mobile screens.
 
