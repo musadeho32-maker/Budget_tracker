@@ -1,9 +1,4 @@
-/* =========================================================
-   My Budget Tracker — Visual Design Challenge
-   Palette: navy, emerald, mint and warm white
-   Fonts: Manrope (headings) + DM Sans (body)
-   ========================================================= */
-
+/* SpendWise — responsive personal budget tracker */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
 
 :root {
@@ -18,368 +13,92 @@
     --text: #344256;
     --muted: #718096;
     --border: #dce5e9;
+    --danger: #b42318;
     --shadow: 0 10px 30px rgba(23, 43, 77, 0.07);
 }
-
-* {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
-
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-    margin: 0;
-    padding: 32px 20px;
-    background: var(--page);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
-    line-height: 1.65;
+    margin: 0; padding: 32px 20px; background: var(--page); color: var(--text);
+    font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.65;
 }
-
-#main-header,
-main,
-.page-footer {
-    width: 100%;
-    max-width: 1040px;
-    margin-right: auto;
-    margin-left: auto;
-}
-
-/* Page heading card */
+#main-header, main, .page-footer { width: 100%; max-width: 1040px; margin-right: auto; margin-left: auto; }
 #main-header {
-    margin-bottom: 28px;
-    padding: 30px 36px;
-    color: var(--white);
+    margin-bottom: 28px; padding: 30px 36px; color: var(--white);
     background: linear-gradient(135deg, var(--navy), var(--navy-soft));
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 18px;
-    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,.12); border-radius: 18px; box-shadow: var(--shadow);
 }
-
-.brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
+.brand { display: flex; align-items: center; justify-content: center; gap: 20px; }
+.site-logo { flex: 0 0 auto; width: 64px; height: 64px; padding: 10px; object-fit: contain; background: var(--white); border-radius: 16px; }
+h1, h2 { font-family: 'Manrope', sans-serif; line-height: 1.25; }
+h1 { margin: 0 0 6px; color: var(--white); font-size: clamp(1.65rem, 4vw, 2.15rem); font-weight: 800; letter-spacing: -.04em; }
+#main-header p { margin: 0; color: #d8e4f0; }
+h2 { margin: 0 0 10px; color: var(--navy); font-size: 1.4rem; font-weight: 800; letter-spacing: -.025em; }
+p { margin-top: 0; }
+.budget-section, .expense-section, .expenses-list, .help-section, .video-section {
+    margin-bottom: 24px; padding: 30px; background: var(--white);
+    border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow);
 }
-
-.site-logo {
-    flex: 0 0 auto;
-    width: 64px;
-    height: 64px;
-    padding: 10px;
-    object-fit: contain;
-    background: var(--white);
-    border-radius: 16px;
+.section-intro, .expense-section > p, .video-section > p { margin-bottom: 20px; color: var(--muted); }
+.budget-section { background: linear-gradient(180deg, var(--white), var(--mint-light)); }
+.summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.summary-card { display: flex; flex-direction: column; gap: 7px; padding: 19px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; }
+.summary-label { color: var(--muted); font-size: .9rem; font-weight: 600; }
+.summary-card strong { color: var(--navy); font-family: 'Manrope', sans-serif; font-size: clamp(1.1rem, 2.8vw, 1.55rem); overflow-wrap: anywhere; }
+.remaining-card { border-color: #b7dfcf; background: #f0faf5; }
+.remaining-card strong { color: var(--green-dark); }
+.status-message { margin: 15px 0 0; color: var(--green-dark); font-weight: 600; }
+.status-message.over-budget { color: var(--danger); }
+.expense-form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 22px; }
+.expense-form > .form-field { min-width: 0; }
+label { display: block; margin: 0 0 7px; color: var(--navy-soft); font-size: .92rem; font-weight: 700; }
+input, select {
+    display: block; width: 100%; min-height: 48px; padding: 11px 14px; color: var(--text);
+    background: #fbfcfd; border: 1px solid #cbd7df; border-radius: 9px; font: inherit;
+    transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
 }
-
-h1,
-h2 {
-    font-family: 'Manrope', sans-serif;
-    line-height: 1.25;
-}
-
-h1 {
-    margin: 0 0 6px;
-    color: var(--white);
-    font-size: clamp(1.65rem, 4vw, 2.15rem);
-    font-weight: 800;
-    letter-spacing: -0.04em;
-}
-
-#main-header p {
-    margin: 0;
-    color: #d8e4f0;
-}
-
-h2 {
-    margin: 0 0 10px;
-    color: var(--navy);
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.025em;
-}
-
-p {
-    margin-top: 0;
-}
-
-/* Distinct content cards */
-.expense-section,
-.expenses-list,
-.help-section,
-.video-section {
-    margin-bottom: 24px;
-    padding: 30px;
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-}
-
-.expense-section > p,
-.section-intro,
-.video-section > p {
-    margin-bottom: 20px;
-    color: var(--muted);
-}
-
-.expenses-list {
-    background: linear-gradient(180deg, var(--white), var(--mint-light));
-}
-
-/* Add Expense form */
-.expense-form {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px 22px;
-}
-
-.expense-form > .form-field {
-    min-width: 0;
-}
-
-label {
-    display: block;
-    margin: 0 0 7px;
-    color: var(--navy-soft);
-    font-size: 0.92rem;
-    font-weight: 700;
-}
-
-input,
-select {
-    display: block;
-    width: 100%;
-    min-height: 48px;
-    padding: 11px 14px;
-    color: var(--text);
-    background: #fbfcfd;
-    border: 1px solid #cbd7df;
-    border-radius: 9px;
-    font: inherit;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-input::placeholder {
-    color: #9aa8b5;
-}
-
-input:not([type="date"]) {
-    color: var(--text);
-}
-
-input:focus,
-select:focus {
-    outline: none;
-    background: var(--white);
-    border-color: var(--green);
-    box-shadow: 0 0 0 4px rgba(22, 133, 104, 0.13);
-}
-
-.expense-form button {
-    justify-self: start;
-    align-self: end;
-    margin-top: 4px;
-}
-
-/* Consistent button styling */
+input::placeholder { color: #9aa8b5; }
+input:focus, select:focus { outline: none; background: var(--white); border-color: var(--green); box-shadow: 0 0 0 4px rgba(22,133,104,.13); }
+.expense-form button { justify-self: start; align-self: end; margin-top: 4px; }
 button {
-    min-height: 48px;
-    padding: 12px 22px;
-    color: var(--white);
-    background: var(--green);
-    border: 1px solid var(--green);
-    border-radius: 9px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.96rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(22, 133, 104, 0.16);
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 48px; padding: 12px 22px; color: var(--white); background: var(--green);
+    border: 1px solid var(--green); border-radius: 9px; font-family: 'DM Sans', sans-serif;
+    font-size: .96rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 10px rgba(22,133,104,.16);
+    transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-
-button:hover {
-    background: var(--green-dark);
-    border-color: var(--green-dark);
-    box-shadow: 0 6px 14px rgba(22, 133, 104, 0.22);
-    transform: translateY(-1px);
-}
-
-button:focus-visible {
-    outline: 3px solid rgba(22, 133, 104, 0.3);
-    outline-offset: 3px;
-}
-
-/* Expense table */
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-}
-
-.expenses-table {
-    width: 100%;
-    min-width: 580px;
-    margin-top: 0;
-    background: var(--white);
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-.expenses-table th,
-.expenses-table td {
-    padding: 15px 17px;
-    text-align: left;
-    border-right: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-}
-
-.expenses-table th:last-child,
-.expenses-table td:last-child {
-    border-right: 0;
-}
-
-.expenses-table tbody tr:last-child td {
-    border-bottom: 0;
-}
-
-.expenses-table thead {
-    color: var(--white);
-    background: var(--navy);
-}
-
-.expenses-table th {
-    font-family: 'Manrope', sans-serif;
-    font-size: 0.86rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-}
-
-.expenses-list td {
-    color: var(--text);
-    font-size: 0.94rem;
-}
-
-.expenses-table tbody tr:nth-child(even) {
-    background: var(--mint-light);
-}
-
-.expenses-table tbody tr:hover {
-    background: #e1f2eb;
-    transition: background-color 0.2s ease;
-}
-
-/* Help and learning sections */
-.help-section {
-    background: #f9fbfc;
-}
-
-details {
-    padding: 2px 0;
-}
-
-summary {
-    color: var(--green-dark);
-    font-weight: 700;
-    cursor: pointer;
-}
-
-details p {
-    margin: 14px 0 2px;
-    color: var(--muted);
-}
-
-.video-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 640px;
-    aspect-ratio: 16 / 9;
-    margin-top: 18px;
-    overflow: hidden;
-    background: #e8eef2;
-    border-radius: 12px;
-}
-
-.video-wrapper iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-}
-
-/* Footer */
-.page-footer {
-    padding: 12px 10px 4px;
-    color: var(--muted);
-    font-size: 0.88rem;
-    text-align: center;
-}
-
-.page-footer p {
-    margin: 0;
-}
-
-/* Responsive layout */
+button:hover { background: var(--green-dark); border-color: var(--green-dark); box-shadow: 0 6px 14px rgba(22,133,104,.22); transform: translateY(-1px); }
+button:focus-visible { outline: 3px solid rgba(22,133,104,.3); outline-offset: 3px; }
+.table-wrapper { width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+.expenses-table { width: 100%; min-width: 580px; background: var(--white); border-collapse: separate; border-spacing: 0; }
+.expenses-table th, .expenses-table td { padding: 15px 17px; text-align: left; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.expenses-table th:last-child, .expenses-table td:last-child { border-right: 0; }
+.expenses-table tbody tr:last-child td { border-bottom: 0; }
+.expenses-table thead { color: var(--white); background: var(--navy); }
+.expenses-table th { font-family: 'Manrope', sans-serif; font-size: .86rem; font-weight: 700; letter-spacing: .02em; }
+.expenses-list td { color: var(--text); font-size: .94rem; }
+.expenses-table tbody tr:nth-child(even) { background: var(--mint-light); }
+.expenses-table tbody tr:hover { background: #e1f2eb; }
+.help-section { background: #f9fbfc; }
+details { padding: 2px 0; }
+summary { color: var(--green-dark); font-weight: 700; cursor: pointer; }
+details p { margin: 14px 0 2px; color: var(--muted); }
+.video-wrapper { position: relative; width: 100%; max-width: 640px; aspect-ratio: 16 / 9; margin-top: 18px; overflow: hidden; background: #e8eef2; border-radius: 12px; }
+.video-wrapper iframe { width: 100%; height: 100%; border: 0; }
+.page-footer { padding: 12px 10px 4px; color: var(--muted); font-size: .88rem; text-align: center; }
+.page-footer p { margin: 0; }
 @media (max-width: 640px) {
-    body {
-        padding: 16px 12px;
-    }
-
-    #main-header {
-        padding: 24px 18px;
-        border-radius: 14px;
-    }
-
-    .brand {
-        flex-direction: column;
-        gap: 12px;
-        text-align: center;
-    }
-
-    .site-logo {
-        width: 58px;
-        height: 58px;
-    }
-
-    .expense-section,
-    .expenses-list,
-    .help-section,
-    .video-section {
-        margin-bottom: 16px;
-        padding: 21px 17px;
-        border-radius: 13px;
-    }
-
-    h2 {
-        font-size: 1.22rem;
-    }
-
-    .expense-form {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .expense-form button {
-        width: 100%;
-        margin-top: 4px;
-    }
-
-    .expenses-table th,
-    .expenses-table td {
-        padding: 12px;
-        font-size: 0.85rem;
-    }
+    body { padding: 16px 12px; }
+    #main-header { padding: 24px 18px; border-radius: 14px; }
+    .brand { flex-direction: column; gap: 12px; text-align: center; }
+    .site-logo { width: 58px; height: 58px; }
+    .budget-section, .expense-section, .expenses-list, .help-section, .video-section { margin-bottom: 16px; padding: 21px 17px; border-radius: 13px; }
+    h2 { font-size: 1.22rem; }
+    .summary-grid { grid-template-columns: 1fr; gap: 10px; }
+    .summary-card { padding: 14px 16px; }
+    .expense-form { grid-template-columns: 1fr; gap: 12px; }
+    .expense-form button { width: 100%; margin-top: 4px; }
+    .expenses-table th, .expenses-table td { padding: 12px; font-size: .85rem; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-    }
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
 }
